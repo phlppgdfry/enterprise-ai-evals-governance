@@ -1,0 +1,15 @@
+services:
+  evaluations:
+    build: .
+    ports:
+      - "127.0.0.1:8083:8080"
+    env_file: .env
+    volumes:
+      - evaluation-data:/app/var
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  evaluation-data:
