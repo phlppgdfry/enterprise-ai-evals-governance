@@ -40,7 +40,10 @@ class Store:
 
     def list_runs(self):
         with self.connection() as db:
-            return [dict(row) for row in db.execute("SELECT id, created_at FROM runs ORDER BY created_at DESC LIMIT 100")]
+            rows = db.execute("SELECT id, created_at, report FROM runs ORDER BY created_at DESC LIMIT 100")
+            return [{"id": row["id"], "created_at": row["created_at"],
+                     "passed": json.loads(row["report"])["summary"]["passed"],
+                     "target": json.loads(row["report"])["target"]} for row in rows]
 
     def audit(self):
         with self.connection() as db:

@@ -1,3 +1,4 @@
+from .security import install_security
 import hmac
 import json
 import os
@@ -16,6 +17,7 @@ from .policy import decide
 from .reports import render_html
 from .store import Store
 from .targets import FixtureTarget, HttpTarget
+from importlib.resources import files
 
 ROOT = Path(__file__).resolve().parent
 
@@ -55,6 +57,11 @@ def create_app(db_path: str | None = None, principals: dict | None = None) -> Fa
     @app.get("/health")
     def health():
         return {"status": "ok", "mode": "portfolio-reference", "auth_configured": bool(configured)}
+
+    @app.get('/console', response_class=HTMLResponse, include_in_schema=False)
+    def console():
+        return HTMLResponse(files('evalgov').joinpath('console.html').read_text(),
+                            headers={'Cache-Control': 'no-store', 'X-Frame-Options': 'DENY'})
 
     @app.post("/runs")
     def run(request: RunRequest, principal: Annotated[dict, Depends(require("evaluator", "governor"))]):
@@ -111,4 +118,5 @@ def create_app(db_path: str | None = None, principals: dict | None = None) -> Fa
     def audit(principal: Annotated[dict, Depends(require("governor"))]):
         return store.audit()
 
+    install_security(app, max_bytes=262144)
     return app

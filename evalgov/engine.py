@@ -8,8 +8,6 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
-from pydantic import ValidationError
-
 from .models import Answer, Case, Thresholds
 from .targets import Target
 

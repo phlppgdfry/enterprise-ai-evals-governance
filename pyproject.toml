@@ -19,7 +19,7 @@ evalgov = "evalgov.cli:main"
 include = ["evalgov*"]
 
 [tool.setuptools.package-data]
-evalgov = ["datasets/*.json", "datasets/*.jsonl"]
+evalgov = ["datasets/*.json", "datasets/*.jsonl", "console.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

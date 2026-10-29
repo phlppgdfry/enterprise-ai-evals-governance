@@ -4,7 +4,8 @@ from pathlib import Path
 
 
 def render_html(report: dict) -> str:
-    esc = lambda value: html.escape(str(value))
+    def esc(value):
+        return html.escape(str(value))
     rows = "".join("<tr><td>" + esc(row["id"]) + "</td><td>" + esc(row["category"])
                    + "</td><td>" + ("PASS" if row["passed"] else "FAIL")
                    + "</td><td>" + esc(", ".join(k for k, v in row["checks"].items() if not v))
