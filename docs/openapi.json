@@ -1,175 +1,245 @@
 {
-  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "PolicyRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "approved_data_source": {
+            "title": "Approved Data Source",
+            "type": "boolean"
+          },
+          "externally_visible_action": {
+            "title": "Externally Visible Action",
+            "type": "boolean"
+          },
+          "financial_posting": {
+            "default": false,
+            "title": "Financial Posting",
+            "type": "boolean"
+          },
+          "owner": {
+            "maxLength": 100,
+            "minLength": 2,
+            "title": "Owner",
+            "type": "string"
+          },
+          "personal_data": {
+            "title": "Personal Data",
+            "type": "boolean"
+          },
+          "retention_days": {
+            "maximum": 3650.0,
+            "minimum": 1.0,
+            "title": "Retention Days",
+            "type": "integer"
+          },
+          "special_category_data": {
+            "default": false,
+            "title": "Special Category Data",
+            "type": "boolean"
+          },
+          "use_case": {
+            "maxLength": 200,
+            "minLength": 3,
+            "title": "Use Case",
+            "type": "string"
+          }
+        },
+        "required": [
+          "use_case",
+          "personal_data",
+          "externally_visible_action",
+          "approved_data_source",
+          "retention_days",
+          "owner"
+        ],
+        "title": "PolicyRequest",
+        "type": "object"
+      },
+      "RunRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "baseline_run_id": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Baseline Run Id"
+          },
+          "fixture": {
+            "default": "good",
+            "enum": [
+              "good",
+              "unsafe",
+              "http"
+            ],
+            "title": "Fixture",
+            "type": "string"
+          },
+          "thresholds": {
+            "$ref": "#/components/schemas/Thresholds"
+          }
+        },
+        "title": "RunRequest",
+        "type": "object"
+      },
+      "Thresholds": {
+        "additionalProperties": false,
+        "properties": {
+          "input_per_million": {
+            "default": 1,
+            "minimum": 0.0,
+            "title": "Input Per Million",
+            "type": "number"
+          },
+          "max_cost_usd": {
+            "default": 0.05,
+            "minimum": 0.0,
+            "title": "Max Cost Usd",
+            "type": "number"
+          },
+          "max_latency_ms": {
+            "default": 10000,
+            "exclusiveMinimum": 0.0,
+            "title": "Max Latency Ms",
+            "type": "number"
+          },
+          "max_regression": {
+            "default": 0,
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Max Regression",
+            "type": "number"
+          },
+          "min_pass_rate": {
+            "default": 1,
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Min Pass Rate",
+            "type": "number"
+          },
+          "output_per_million": {
+            "default": 4,
+            "minimum": 0.0,
+            "title": "Output Per Million",
+            "type": "number"
+          }
+        },
+        "title": "Thresholds",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "in": "header",
+        "name": "X-API-Key",
+        "type": "apiKey"
+      }
+    }
+  },
   "info": {
     "title": "Enterprise AI Evaluation & Governance",
     "version": "0.1.0"
   },
+  "openapi": "3.1.0",
   "paths": {
+    "/audit": {
+      "get": {
+        "operationId": "audit_audit_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "summary": "Audit"
+      }
+    },
     "/health": {
       "get": {
-        "summary": "Health",
         "operationId": "health_health_get",
         "responses": {
           "200": {
-            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {}
               }
-            }
-          }
-        }
-      }
-    },
-    "/runs": {
-      "get": {
-        "summary": "List Runs",
-        "operationId": "list_runs_runs_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+            },
+            "description": "Successful Response"
           }
         },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "post": {
-        "summary": "Run",
-        "operationId": "run_runs_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RunRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/runs/{run_id}": {
-      "get": {
-        "summary": "Get Run",
-        "operationId": "get_run_runs__run_id__get",
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "run_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Run Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runs/{run_id}/report": {
-      "get": {
-        "summary": "Html Report",
-        "operationId": "html_report_runs__run_id__report_get",
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "run_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Run Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "text/html": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
+        "summary": "Health"
       }
     },
     "/policy/decide": {
       "post": {
-        "summary": "Policy",
         "operationId": "policy_policy_decide_post",
         "requestBody": {
           "content": {
@@ -183,246 +253,176 @@
         },
         "responses": {
           "200": {
-            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {}
               }
-            }
+            },
+            "description": "Successful Response"
           },
           "422": {
-            "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
-            }
+            },
+            "description": "Validation Error"
           }
         },
         "security": [
           {
             "APIKeyHeader": []
           }
-        ]
+        ],
+        "summary": "Policy"
       }
     },
-    "/audit": {
+    "/runs": {
       "get": {
-        "summary": "Audit",
-        "operationId": "audit_audit_get",
+        "operationId": "list_runs_runs_get",
         "responses": {
           "200": {
-            "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {}
               }
-            }
+            },
+            "description": "Successful Response"
           }
         },
         "security": [
           {
             "APIKeyHeader": []
           }
-        ]
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "HTTPValidationError": {
-        "properties": {
-          "detail": {
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            },
-            "type": "array",
-            "title": "Detail"
-          }
-        },
-        "type": "object",
-        "title": "HTTPValidationError"
-      },
-      "PolicyRequest": {
-        "properties": {
-          "use_case": {
-            "type": "string",
-            "maxLength": 200,
-            "minLength": 3,
-            "title": "Use Case"
-          },
-          "personal_data": {
-            "type": "boolean",
-            "title": "Personal Data"
-          },
-          "special_category_data": {
-            "type": "boolean",
-            "title": "Special Category Data",
-            "default": false
-          },
-          "externally_visible_action": {
-            "type": "boolean",
-            "title": "Externally Visible Action"
-          },
-          "financial_posting": {
-            "type": "boolean",
-            "title": "Financial Posting",
-            "default": false
-          },
-          "approved_data_source": {
-            "type": "boolean",
-            "title": "Approved Data Source"
-          },
-          "retention_days": {
-            "type": "integer",
-            "maximum": 3650.0,
-            "minimum": 1.0,
-            "title": "Retention Days"
-          },
-          "owner": {
-            "type": "string",
-            "maxLength": 100,
-            "minLength": 2,
-            "title": "Owner"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "use_case",
-          "personal_data",
-          "externally_visible_action",
-          "approved_data_source",
-          "retention_days",
-          "owner"
         ],
-        "title": "PolicyRequest"
+        "summary": "List Runs"
       },
-      "RunRequest": {
-        "properties": {
-          "fixture": {
-            "type": "string",
-            "enum": [
-              "good",
-              "unsafe",
-              "http"
-            ],
-            "title": "Fixture",
-            "default": "good"
-          },
-          "baseline_run_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 100
-              },
-              {
-                "type": "null"
+      "post": {
+        "operationId": "run_runs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
               }
-            ],
-            "title": "Baseline Run Id"
+            }
           },
-          "thresholds": {
-            "$ref": "#/components/schemas/Thresholds"
-          }
+          "required": true
         },
-        "additionalProperties": false,
-        "type": "object",
-        "title": "RunRequest"
-      },
-      "Thresholds": {
-        "properties": {
-          "min_pass_rate": {
-            "type": "number",
-            "maximum": 1.0,
-            "minimum": 0.0,
-            "title": "Min Pass Rate",
-            "default": 1
-          },
-          "max_latency_ms": {
-            "type": "number",
-            "exclusiveMinimum": 0.0,
-            "title": "Max Latency Ms",
-            "default": 10000
-          },
-          "max_cost_usd": {
-            "type": "number",
-            "minimum": 0.0,
-            "title": "Max Cost Usd",
-            "default": 0.05
-          },
-          "max_regression": {
-            "type": "number",
-            "maximum": 1.0,
-            "minimum": 0.0,
-            "title": "Max Regression",
-            "default": 0
-          },
-          "input_per_million": {
-            "type": "number",
-            "minimum": 0.0,
-            "title": "Input Per Million",
-            "default": 1
-          },
-          "output_per_million": {
-            "type": "number",
-            "minimum": 0.0,
-            "title": "Output Per Million",
-            "default": 4
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "title": "Thresholds"
-      },
-      "ValidationError": {
-        "properties": {
-          "loc": {
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "integer"
-                }
-              ]
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
             },
-            "type": "array",
-            "title": "Location"
+            "description": "Successful Response"
           },
-          "msg": {
-            "type": "string",
-            "title": "Message"
-          },
-          "type": {
-            "type": "string",
-            "title": "Error Type"
-          },
-          "input": {
-            "title": "Input"
-          },
-          "ctx": {
-            "type": "object",
-            "title": "Context"
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
           }
         },
-        "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
         ],
-        "title": "ValidationError"
+        "summary": "Run"
       }
     },
-    "securitySchemes": {
-      "APIKeyHeader": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "X-API-Key"
+    "/runs/{run_id}": {
+      "get": {
+        "operationId": "get_run_runs__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "summary": "Get Run"
+      }
+    },
+    "/runs/{run_id}/report": {
+      "get": {
+        "operationId": "html_report_runs__run_id__report_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "summary": "Html Report"
       }
     }
   }

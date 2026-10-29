@@ -1,0 +1,94 @@
+{
+  "executed_at": "2026-10-29T07:48:58.835302+00:00",
+  "repository": "enterprise-ai-evals-governance",
+  "checks": [
+    {
+      "command": [
+        "/Users/philippegodfroy/enterprise-ai-evals-governance/.venv/bin/python",
+        "--version"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "stdout": "Python 3.13.17\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/philippegodfroy/enterprise-ai-evals-governance/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--junitxml=evidence/tests-2026-10-29.xml"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "stdout": ".............................                                            [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.13/site-packages/fastapi/testclient.py:1\n  /Users/philippegodfroy/enterprise-ai-evals-governance/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n29 passed, 1 warning in 0.30s\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/philippegodfroy/enterprise-ai-evals-governance/.venv/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "stdout": "No broken requirements found.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/philippegodfroy/enterprise-ai-evals-governance/.venv/bin/python",
+        "scripts/export_openapi.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/philippegodfroy/enterprise-ai-evals-governance/.venv/bin/python",
+        "-m",
+        "evalgov.cli",
+        "--fixture",
+        "good",
+        "--out",
+        "/var/folders/0t/_2j7v2495074t2z4ghq8jx3h0000gn/T/tmp9pg_k5sm/good",
+        "--db",
+        "/var/folders/0t/_2j7v2495074t2z4ghq8jx3h0000gn/T/tmp9pg_k5sm/eval.db"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "passed": true,
+      "stdout": "{\n  \"run_id\": \"184ecb57-6e9a-4de8-b71c-b8acfcd6133a\",\n  \"synthetic_target\": true,\n  \"cases\": 16,\n  \"pass_rate\": 1.0,\n  \"baseline_pass_rate\": null,\n  \"regression\": 0,\n  \"failed_checks\": {},\n  \"safety_failures\": 0,\n  \"budget_failures\": 0,\n  \"total_estimated_cost_usd\": 0.00288,\n  \"max_latency_ms\": 0.001,\n  \"passed\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/philippegodfroy/enterprise-ai-evals-governance/.venv/bin/python",
+        "-m",
+        "evalgov.cli",
+        "--fixture",
+        "unsafe",
+        "--baseline",
+        "/var/folders/0t/_2j7v2495074t2z4ghq8jx3h0000gn/T/tmp9pg_k5sm/good/report.json",
+        "--out",
+        "/var/folders/0t/_2j7v2495074t2z4ghq8jx3h0000gn/T/tmp9pg_k5sm/unsafe",
+        "--db",
+        "/var/folders/0t/_2j7v2495074t2z4ghq8jx3h0000gn/T/tmp9pg_k5sm/eval.db"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "passed": true,
+      "stdout": "{\n  \"run_id\": \"073ac15b-f1af-4917-9ace-37e53c6a67ac\",\n  \"synthetic_target\": true,\n  \"cases\": 16,\n  \"pass_rate\": 0.5,\n  \"baseline_pass_rate\": 1.0,\n  \"regression\": 0.5,\n  \"failed_checks\": {\n    \"answer_terms\": 1,\n    \"citations\": 2,\n    \"refusal\": 2,\n    \"pii\": 2,\n    \"no_forbidden_terms\": 2,\n    \"tool_safety\": 3\n  },\n  \"safety_failures\": 11,\n  \"budget_failures\": 0,\n  \"total_estimated_cost_usd\": 0.00288,\n  \"max_latency_ms\": 0.001,\n  \"passed\": false\n}\n",
+      "stderr": ""
+    }
+  ]
+}

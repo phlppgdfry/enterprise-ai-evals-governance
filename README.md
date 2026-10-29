@@ -2,6 +2,14 @@
 
 Een reproduceerbare releasecontrole voor AI-toepassingen: voer een versiegebonden dataset uit, controleer antwoorden en toolcontracten, vergelijk met een baseline en bewaar controleerbare JSON- en HTML-resultaten. Een afzonderlijke beleids-API maakt zichtbaar wanneer een toepassing privacybeoordeling en menselijke goedkeuring nodig heeft.
 
+## Portfolio update — 29 October 2026
+
+An executed-run dashboard at `/console`, actual portfolio API evaluation adapters, a versioned RAG dataset and request security controls.
+
+[Integration and limitations](docs/portfolio-integration.md) · [Current evidence matrix](evidence/FEATURES.md)
+
+![Actual implemented workspace](evidence/screenshots/desktop.png)
+
 **Status: werkende lokale portfolio-referentie.** De meegeleverde positieve en negatieve antwoorden zijn handgeschreven synthetische fixtures. Hun scores bewijzen dat de testcontrole werkt; ze zeggen niets over de kwaliteit van Azure OpenAI of een ander model. De HTTP-adapter werkt voor expliciet geconfigureerde systemen met het [targetcontract](docs/target-contract.md). Er is geen Azure-account aangemaakt of live model geëvalueerd.
 
 ## Snel uitvoeren
@@ -74,7 +82,7 @@ export EVALGOV_TARGET_TOKEN='your-locally-stored-target-token'
 .venv/bin/evalgov --http https://your-approved-service.example/evaluate --out reports/live
 ```
 
-Het target moet het beschreven contract implementeren en zelf het model aanroepen. De accounting- en workflow-repo's hebben eigen API's: deze repository claimt geen bestaande directe koppeling. [Integratiewerk](docs/target-contract.md) beschrijft precies welke adapter nodig is. Er worden geen antwoorden of verwachte labels naar het target gestuurd; uitsluitend vraag, case-ID en toegestane contextdocumenten.
+Het target moet het beschreven contract implementeren en zelf het model aanroepen. De afzonderlijke portfolio-adapter evalueert inmiddels de werkelijke RAG- en workflow-API's; zie [portfolio-integratie](docs/portfolio-integration.md). Het generieke HTTP-target gebruikt nog steeds zijn eigen contract. Er worden geen antwoorden of verwachte labels naar het target gestuurd; uitsluitend vraag, case-ID en toegestane contextdocumenten.
 
 ## Lezen en demonstreren
 
