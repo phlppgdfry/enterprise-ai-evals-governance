@@ -1,6 +1,6 @@
 # Enterprise AI Evals & Governance
 
-[Portfolio case study](https://github.com/phlppgdfry/ai-transformation-playbook/tree/portfolio/enterprise-quality-2026-10-29) · [Current release evaluation](docs/release.md) · [Capability evidence](evidence/release-2026-10-30/FEATURES.md). Local checks are recorded; hosted CI and cloud runtime remain separately unverified.
+[Portfolio case study](https://github.com/phlppgdfry/ai-transformation-playbook/tree/portfolio/enterprise-quality-2026-10-29) · [Current release evaluation](docs/release.md) · [Capability evidence](evidence/release-2026-10-30/FEATURES.md). Local and hosted release checks passed; [exact commit and workflow evidence](https://github.com/phlppgdfry/ai-transformation-playbook/blob/portfolio/enterprise-quality-2026-10-29/portfolio/release-2026-10-31/REPORT.md). Cloud runtime remains unverified.
 
 Een reproduceerbare releasecontrole voor AI-toepassingen: voer een versiegebonden dataset uit, controleer antwoorden en toolcontracten, vergelijk met een baseline en bewaar controleerbare JSON- en HTML-resultaten. Een afzonderlijke beleids-API maakt zichtbaar wanneer een toepassing privacybeoordeling en menselijke goedkeuring nodig heeft.
 
