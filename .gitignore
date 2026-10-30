@@ -10,3 +10,10 @@ var/
 reports/
 *.sqlite3*
 .DS_Store
+
+# Local verification and package outputs
+.quality-venv/
+reports/
+build/
+dist/
+*.whl

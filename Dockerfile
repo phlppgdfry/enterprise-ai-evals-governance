@@ -1,6 +1,6 @@
 FROM python:3.13-slim
 WORKDIR /app
-COPY requirements.lock pyproject.toml ./
+COPY requirements.lock pyproject.toml LICENSE ./
 RUN pip install --no-cache-dir -r requirements.lock
 COPY evalgov ./evalgov
 COPY README.md ./
