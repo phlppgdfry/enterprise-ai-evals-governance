@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Evals &amp; Governance — a release gate for AI features, with evidence you can inspect</title>
+<meta name="description" content="Run a versioned dataset against an AI feature, check answers, citations, refusals, PII and tool calls, compare with a baseline and keep JSON and HTML evidence. Explore a passing and a failing run.">
+<link rel="canonical" href="https://phlppgdfry.github.io/enterprise-ai-evals-governance/">
+<meta property="og:type" content="website"><meta property="og:title" content="AI Evals &amp; Governance — a release gate for AI features, with evidence you can inspect"><meta property="og:description" content="Run a versioned dataset against an AI feature, check answers, citations, refusals, PII and tool calls, compare with a baseline and keep JSON and HTML evidence. Explore a passing and a failing run.">
+<meta property="og:url" content="https://phlppgdfry.github.io/enterprise-ai-evals-governance/"><meta property="og:image" content="https://phlppgdfry.github.io/enterprise-ai-evals-governance/og.jpg"><meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f59e0b'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/showcase.css">
+<style>:root{--brand:#f59e0b;--accent-ink:#1a0f00}
+#eg-tiles{grid-template-columns:1.6fr 1fr 1fr 1fr}#eg-tiles .big{grid-column:auto}
+@media (max-width:620px){#eg-tiles{grid-template-columns:1fr 1fr}#eg-tiles .big{grid-column:span 2}}
+.eg-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.eg-matrix td,.eg-matrix th{font-size:12.5px;text-align:center;padding:7px 6px}
+.eg-matrix td:nth-child(-n+2),.eg-matrix th:nth-child(-n+2){text-align:left}
+.eg-c.y{color:var(--ok)} .eg-c.n{color:var(--bad);font-weight:700;background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.eg-fail td:first-child{box-shadow:inset 3px 0 0 var(--bad)}
+.eg-links{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <a class="brand" href="#"><i class="dot"></i><span>AI Evals &amp; Governance</span></a>
+  <nav><a class="" href="#demo">Try it</a><a class="" href="#how">How it works</a><a class="hide-sm" href="#screens">Screens</a><a class="hide-sm" href="#run">Run it</a><a href="https://github.com/phlppgdfry/enterprise-ai-evals-governance" aria-label="GitHub repository">GitHub</a><button class="theme" type="button" aria-label="Toggle light or dark theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></nav>
+</div></div>
+<main>
+<header class="hero"><div class="wrap grid">
+  <div>
+    <div class="kicker"><span>Python · FastAPI · evaluation · governance</span><span class="chip status">Portfolio v1.0</span></div>
+    <h1>An AI feature ships when it <em>passes the gate</em>, not when it demos well.</h1>
+    <p class="lede">Sixteen versioned cases across six categories run against a target. Every answer is checked for its contract, required terms and sources, refusals, forbidden canaries, PII patterns and exact tool arguments; results are compared with a baseline, and hard gates block a release whatever the average score.</p>
+    <div class="ctas"><a class="btn primary" href="#demo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Explore the runs</a><a class="btn" href="https://github.com/phlppgdfry/enterprise-ai-evals-governance"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg> Source on GitHub</a></div>
+    <div class="stack"><span class="chip">Python 3.13</span><span class="chip">FastAPI</span><span class="chip">Pydantic</span><span class="chip">SQLite</span><span class="chip">JSON + HTML reports</span><span class="chip">pytest</span><span class="chip">GitHub Actions</span></div>
+  </div>
+  <div class="hero-visual"><div class="frame"><div class="bar"><i></i><i></i><i></i><b>127.0.0.1:8083/console · evaluation dashboard</b></div><img src="img/evidence-screenshots-desktop.webp" alt="AI Evals &amp; Governance" width="1440" height="1000"></div><div class="caption">The executed-run dashboard from the repository, showing real runs from the local API.</div></div>
+</div></header>
+<section id="why"><div class="wrap">
+  <p class="eyebrow">Why it exists</p><h2>"It answered well in the demo" is not a release criterion.</h2>
+  <div class="problem">
+    <div class="card before"><div class="label">Without it</div><p>A prompt or model change goes live after a few hand-picked questions. Nobody notices that it now leaks a canary value, cites a document the user may not see, or calls a tool with arguments it was never allowed to use.</p></div>
+    <div class="card after"><div class="label">With it</div><p>A fixed, hashed dataset runs on every change. Hard gates for schema, privacy, refusals, tool safety, citations and budget block a release; a regression against the baseline is visible per check, and every run leaves JSON and HTML evidence.</p></div>
+  </div>
+</div></section>
+<section id="demo"><div class="wrap">
+  <p class="eyebrow">Try it · runs in your browser</p><h2>Compare a passing and a failing run</h2>
+  <p class="sub">Both runs are committed in <code>evidence/</code>: the same 16 cases, once with good answers and once with deliberately unsafe ones (wrong answers, data leaks, unsafe tool calls). Switch between them to see which checks catch what.</p>
+  <div class="demo"><div class="eg-head"><div class="tabs" id="eg-runs" style="margin:0"><button type="button" data-r="good" aria-selected="true">Positive control (good answers)</button><button type="button" data-r="unsafe">Negative control (unsafe answers)</button></div><span id="eg-verdict"></span></div>
+<div class="kpi-tiles" id="eg-tiles"></div>
+<div class="scroll-x" style="margin-top:14px"><table class="tbl eg-matrix" id="eg-matrix"></table></div>
+<p class="small dim" id="eg-legend" style="margin-top:8px">✓ check passed · ✗ check failed. Hard gates (schema, PII, refusal, tool safety, citations, budget) block a release whatever the pass rate.</p>
+<div class="eg-links"><a href="reports/good/report.html">Open the real HTML report: good ↗</a><a href="reports/unsafe/report.html">Open the real HTML report: unsafe ↗</a></div>
+</div>
+  <p class="note">The answers are hand-written synthetic fixtures. Their scores prove the checks work; they say nothing about the quality of any real model. The quality checks are heuristics: an answer can contain the right terms and still be wrong.</p>
+</div></section>
+<section id="how"><div class="wrap">
+  <p class="eyebrow">How it works</p><h2>What one evaluation run checks</h2>
+  
+  <div class="cards"><div class="card"><div class="ic">01</div><h3>Versioned dataset</h3><p>16 cases in six categories, with a SHA-256 in every report; a baseline must have the same hash and case order.</p></div><div class="card"><div class="ic">02</div><h3>Contract and quality</h3><p>Strict answer shape, finite token counts, required answer terms and source IDs; wrong or disallowed citations fail.</p></div><div class="card"><div class="ic">03</div><h3>Safety as hard gates</h3><p>Expected refusals, forbidden canaries, simple PII patterns and exact allowed tool arguments block a release on their own.</p></div><div class="card"><div class="ic">04</div><h3>Governance API</h3><p>Server-bound reader, evaluator and governor roles; policy advice lists blockers and required controls but never grants execution rights.</p></div></div>
+  <h3 style="margin:34px 0 14px">The flow, step by step</h3><div class="flow" role="list"><div class="node"><div class="n">01</div><b>Dataset</b><small>16 hashed cases</small></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node"><div class="n">02</div><b>Target</b><small>fixture, or a portfolio API adapter</small></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node"><div class="n">03</div><b>Checks</b><small>contract, quality, safety, cost, latency</small></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node hl"><div class="n">04</div><b>Gate</b><small>hard gates + pass rate + regression</small></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node"><div class="n">05</div><b>Evidence</b><small>JSON, HTML, SQLite audit</small></div></div>
+</div></section>
+<section id="screens"><div class="wrap">
+  <p class="eyebrow">Screens</p><h2>What it looks like</h2>
+  
+  <div class="gallery"><figure data-zoom="On a phone — The same dashboard at 390 pixels."><div class="frame"><img src="img/evidence-screenshots-mobile.webp" alt="On a phone" width="390" height="844" loading="lazy" decoding="async"></div><figcaption><b>On a phone</b> The same dashboard at 390 pixels.</figcaption></figure></div>
+</div></section>
+<section id="evidence"><div class="wrap">
+  <p class="eyebrow">Evidence</p><h2>What is real, and what is not</h2>
+  
+  <div class="metrics"><div class="metric"><div class="v">100% → 50%</div><div class="l">pass rate, good vs unsafe</div><div class="s">same dataset, 8 regressions caught</div></div><div class="metric"><div class="v">11</div><div class="l">safety failures in the unsafe run</div><div class="s">PII, canaries, refusals, tool arguments</div></div><div class="metric"><div class="v">16</div><div class="l">versioned cases</div><div class="s">six categories</div></div></div>
+  <div class="honest" style="margin-top:18px">
+      <div class="card real"><h3><span class="pill ok">REAL</span> Built and verified</h3><ul><li>Evaluation engine, release gates, baseline comparison and reports, with tests and CI</li><li>A FastAPI service with role-bound access and a run dashboard</li><li>Adapters that evaluate the other portfolio APIs locally</li></ul></div>
+      <div class="card sim"><h3><span class="pill warn">SIMULATED</span> Mocked or not built yet</h3><ul><li>Fixture answers are synthetic and hand-written</li><li>Heuristic checks: no full groundedness, legal compliance or robust PII detection</li><li>No live Azure model was evaluated</li></ul></div></div>
+</div></section>
+<section id="run"><div class="wrap two">
+  <div><p class="eyebrow">Run it yourself</p><h2>Run it locally</h2>
+  
+  <div class="code"><button class="copy" type="button">Copy</button><pre><code>git clone https://github.com/phlppgdfry/enterprise-ai-evals-governance
+cd enterprise-ai-evals-governance
+python3.13 -m venv .venv
+.venv/bin/python -m pip install -r requirements.lock
+.venv/bin/python -m pip install --no-deps -e .
+.venv/bin/python -m pytest -q
+.venv/bin/evalgov --fixture good --out reports/good
+.venv/bin/evalgov --fixture unsafe --baseline reports/good/report.json --out reports/unsafe   # exits 1 on purpose</code></pre></div></div>
+  <div><p class="eyebrow">Go deeper</p><h2>Read the source</h2>
+  <div class="links"><a href="https://github.com/phlppgdfry/enterprise-ai-evals-governance"><span>Repository</span><span>github</span></a><a href="https://github.com/phlppgdfry/enterprise-ai-evals-governance/blob/HEAD/docs/release.md"><span>Current release evaluation</span><span>docs</span></a><a href="https://github.com/phlppgdfry/enterprise-ai-evals-governance/blob/HEAD/docs/portfolio-integration.md"><span>Integration and limitations</span><span>docs</span></a><a href="https://github.com/phlppgdfry/enterprise-ai-evals-governance/blob/HEAD/evidence/FEATURES.md"><span>Evidence matrix</span><span>md</span></a><a href="https://phlppgdfry.github.io/ai-transformation-playbook/"><span>AI Transformation Playbook (the case)</span><span>live</span></a></div></div>
+</div></section></main>
+<footer><div class="wrap">
+  <span>AI Evals &amp; Governance · A portfolio project by Philippe Godfroy</span>
+  <span><a href="https://www.philippegodfroy.com/work">More projects</a> · <a href="https://github.com/phlppgdfry/enterprise-ai-evals-governance">Source</a></span>
+</div></footer>
+<script src="assets/showcase.js"></script>
+
+<script src="assets/demo.js" type="module"></script>
+</body></html>
